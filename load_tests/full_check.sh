@@ -2,7 +2,7 @@
 
 # Определение констант и переменных
 CONNECTIONS=12
-DURATION="10s"
+DURATION="5s"
 THREADS=4
 
 # Базовая команда для запуска wrk2

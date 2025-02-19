@@ -62,7 +62,7 @@ function request()
           "lastName": "%s",
           "birthDate": "2001-01-01",
           "group": {
-            "id": "37aa6f1a-4335-43d3-8057-00c375453636-"
+            "id": "-d1006d78-adbe-402f-bb4f-e704cf7b9e1c"
           },
           "email": "%s",
           "phone": "%s"
