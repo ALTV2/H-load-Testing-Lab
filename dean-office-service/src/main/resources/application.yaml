@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: dean-office-service
+  datasource:
+    url: jdbc:postgresql://Dean-postgres:5432/dean_office
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    root: INFO
+    com.tveritin.scheduler: DEBUG  # Включение отладки для пакета com.tveritin.scheduler
+
+app:
+  scheduler:
+    output:
+      path: /app/data
+#        path: /Users/tveritinaleksandr/IdeaProjects/H-load-Testing-Lab-v2/data

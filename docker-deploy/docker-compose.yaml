@@ -1,0 +1,63 @@
+version: '3.8'
+services:
+  dean-office-service:
+    build:
+      context: ../dean-office-service
+      dockerfile: Dockerfile
+    container_name: Dean-office-service
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data # Общая директория для JSON файлов
+    depends_on:
+        - postgres
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
+  spark:
+    build:
+      context: ../spark-streaming-service  # Указываем директорию с Dockerfile (в данном случае текущую папку)
+      dockerfile: Dockerfile  # Можно явно указать имя Dockerfile, если оно отличается от дефолтного
+    image: spark-streaming:6
+    pull_policy: always
+    container_name: Dean-spark
+    depends_on:
+      - kafka
+    ports:
+      - "4040:4040"  # Порт для Spark UI
+#    environment:
+#      - SPARK_MODE=cluster  # Режим Spark (можно настроить как standalone, cluster или другие)
+    volumes:
+      - ./data:/app/data
+
+  postgres:
+    image: postgres:17
+    container_name: Dean-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dean_office
+    ports:
+      - "5432:5432"
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: Dean-kafka
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://Dean-kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      depends_on: zookeeper
+    ports:
+      - "9092:9092"
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: Dean-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"

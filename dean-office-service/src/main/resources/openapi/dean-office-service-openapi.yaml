@@ -1,0 +1,199 @@
+openapi: 3.0.0
+info:
+  title: Bank Service API
+  description: API for managing bank users, their accounts, and handling fund transfers.
+  version: 1.0.0
+paths:
+  /users:
+    post:
+      summary: Create a new bank user
+      description: Creates a new user in the bank system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '201':
+          description: User created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+        '400':
+          description: Invalid input.
+
+  /transfers:
+    post:
+      summary: Transfer funds between accounts
+      description: Transfers funds between two user accounts, with an optional transfer fee.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferRequest'
+      responses:
+        '200':
+          description: Transfer successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferResponse'
+        '400':
+          description: Invalid input or insufficient funds.
+        '404':
+          description: Account not found.
+
+  /accounts:
+    post:
+      summary: Open a new account for a user
+      description: Opens a new account for an existing user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpenAccountRequest'
+      responses:
+        '201':
+          description: Account opened successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenAccountResponse'
+        '400':
+          description: Invalid input.
+
+    delete:
+      summary: Close an account
+      description: Closes an existing account for a user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloseAccountRequest'
+      responses:
+        '200':
+          description: Account closed successfully.
+        '400':
+          description: Invalid input or account not found.
+
+components:
+  schemas:
+    CreateUserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the user.
+          example: John Doe
+        email:
+          type: string
+          description: The email address of the user.
+          example: john.doe@example.com
+        accounts:
+          type: array
+          description: Initial accounts to be created for the user.
+          items:
+            $ref: '#/components/schemas/Account'
+      required:
+        - name
+        - email
+
+    CreateUserResponse:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Unique identifier for the user.
+          example: abc123
+
+    TransferRequest:
+      type: object
+      properties:
+        fromAccount:
+          type: string
+          description: The account number to transfer funds from.
+          example: 123456789
+        toAccount:
+          type: string
+          description: The account number to transfer funds to.
+          example: 987654321
+        amount:
+          type: number
+          format: float
+          description: The amount to transfer.
+          example: 100.0
+        fee:
+          type: number
+          format: float
+          description: The transfer fee to be deducted from the sender's account.
+          example: 2.0
+      required:
+        - fromAccount
+        - toAccount
+        - amount
+
+    TransferResponse:
+      type: object
+      properties:
+        transactionId:
+          type: string
+          description: Unique identifier for the transaction.
+          example: txn789
+        remainingBalance:
+          type: number
+          format: double
+          description: Remaining balance in the sender's account after the transfer.
+          example: 898.0
+
+    OpenAccountRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: Unique identifier of the user.
+          example: abc123
+        account:
+          $ref: '#/components/schemas/Account'
+      required:
+        - userId
+        - account
+
+    OpenAccountResponse:
+      type: object
+      properties:
+        accountId:
+          type: string
+          description: Unique identifier for the newly created account.
+          example: acc567
+
+    CloseAccountRequest:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+          description: The account number to be closed.
+          example: 123456789
+      required:
+        - accountNumber
+
+    Account:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+          description: Unique account number.
+          example: 123456789
+        currency:
+          type: string
+          description: Currency code (ISO 4217 format).
+          example: USD
+        balance:
+          type: number
+          format: double
+          description: Initial balance of the account.
+          example: 1000.0
