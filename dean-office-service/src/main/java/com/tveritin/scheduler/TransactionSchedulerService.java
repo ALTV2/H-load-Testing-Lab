@@ -2,9 +2,8 @@ package com.tveritin.scheduler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tveritin.entity.User;
-import com.tveritin.repository.TransferRepository;
-import com.tveritin.repository.UserRepository;
+import com.tveritin.entity.Student;
+import com.tveritin.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,8 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TransactionSchedulerService {
 
-    private final TransferRepository transferRepository;
-    private final UserRepository userRepository;
+    private final StudentRepository studentRepository;
     private final ObjectMapper objectMapper;
 
     // Путь для хранения файлов
@@ -34,7 +32,7 @@ public class TransactionSchedulerService {
 
     @Scheduled(cron = "0 * * * * *") // Каждую минуту
     public void collectTransactionsAndWriteToFile() {
-        List<User> users = userRepository.findAll(); //Нужно только новые транзакции, но пока пойдет
+        List<Student> users = studentRepository.findAll(); //Нужно только новые транзакции, но пока пойдет
 
         if (users.isEmpty()) {
             System.out.println("Нет транзакций для записи.");
@@ -44,13 +42,13 @@ public class TransactionSchedulerService {
         try {
             // Преобразуем список транзакций в JSON
             String json = objectMapper.writeValueAsString(users);
-            
+
             // Генерация нового имени файла с инкрементированным номером
             String fileName = generateFileName();
-            
+
             // Записываем в новый файл
             writeToFile(json, fileName);
-            
+
             System.out.println("Транзакции успешно записаны в файл: " + fileName);
         } catch (JsonProcessingException e) {
             System.err.println("Ошибка при преобразовании транзакций в JSON: " + e.getMessage());

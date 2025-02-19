@@ -14,6 +14,24 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: docker
 
+  kafka-consumer-service:
+    build:
+      context: ../kafka-consumer-service
+      dockerfile: Dockerfile
+    container_name: Dean-kafka-consumer
+    ports:
+      - "8081:8081"  # Пробрасываем порт 8080
+    depends_on:
+      - kafka
+      - mongo
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092 #
+  #      - KAFKA_BROKERS=kafka:9092
+  #      - KAFKA_TOPIC=JSON_DATA # Изменено имя топика
+  #      - MONGO_URI=mongodb://mongo:27017
+  #      - MONGO_DB=mydatabase
+
   spark:
     build:
       context: ../spark-streaming-service  # Указываем директорию с Dockerfile (в данном случае текущую папку)
@@ -61,3 +79,11 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - "2181:2181"
+
+  mongo:
+    image: mongo:6.0
+    container_name: HT-mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: mydatabase  # Создание

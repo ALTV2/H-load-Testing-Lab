@@ -13,7 +13,7 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import java.util.Properties;
 
 public class SparkStreamingApp {
-    private static final String KAFKA_TOPIC = "DEAN_JSON_DATA";
+    private static final String KAFKA_TOPIC = "JSON_DATA";
     private static final String KAFKA_SERVER = "Dean-kafka:9092";
     private static final String WATCH_DIRECTORY = "/app/data/";
 

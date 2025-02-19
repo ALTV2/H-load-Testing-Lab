@@ -1,0 +1,41 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: bank-service-api
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
+  data:
+    mongodb:
+      uri: mongodb://mongo:27017/mydatabase
+
+  kafka:
+    topic:
+      name: "JSON_DATA"  # Название Kafka топика
+    bootstrap-servers: kafka:9092  # Адрес Kafka брокера(ов)
+    consumer:
+      group: default
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+logging:
+  level:
+    root: INFO
+    com.tveritin.scheduler: DEBUG  # Включение отладки для пакета com.tveritin.scheduler
+
+app:
+  scheduler:
+    transaction:
+      file:
+        path: kafka-consumer-service/src/main/resources/output
