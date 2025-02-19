@@ -238,44 +238,6 @@
                 <version>${spring.boot.version}</version>
             </plugin>
 
-            <!-- OpenAPI Generator Maven Plugin -->
-            <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>${openapi.generator.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/openapi/dean-office-service-openapi.yaml</inputSpec>
-                            <generatorName>spring</generatorName>
-                            <output>${project.build.directory}/generated-sources</output>
-                            <apiPackage>com.tveritin.bankservice.api</apiPackage>
-                            <modelPackage>com.tveritin.bankservice.dto</modelPackage>
-                            <!--                            <invokerPackage>com.tveritin.bankservice.invoker</invokerPackage>-->
-                            <configOptions>
-                                <sourceFolder>src/gen/java</sourceFolder>
-                                <java21>true</java21>
-                                <useJakartaEe>true</useJakartaEe>
-                                <library>spring-boot</library>
-                                <useBeanValidation>true</useBeanValidation>
-                                <openApiNullable>false</openApiNullable>
-                                <useBeanValidation>true</useBeanValidation>
-                                <interfaceOnly>true</interfaceOnly>
-                                <skipServer>true</skipServer>
-                                <skipDefaultInterface>true</skipDefaultInterface>
-                                <serealiziableMode>true</serealiziableMode>
-                            </configOptions>
-                            <generateApis>true</generateApis>
-                            <generateModelTests>false</generateModelTests>
-                            <!--                            <generateSupportingFiles>true</generateSupportingFiles>-->
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
         </plugins>
     </build>
 </project>

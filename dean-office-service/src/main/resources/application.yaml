@@ -4,28 +4,28 @@ server:
 spring:
   application:
     name: dean-office-service
-  datasource:
-    url: jdbc:postgresql://Dean-postgres:5432/dean_office
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: postgres
-  jpa:
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
-    hibernate:
-      ddl-auto: update
-
-#datasource:
-#  url: jdbc:h2:mem:testdb
-#  driverClassName: org.h2.Driver
-#  username: sa
-#  password:
+#  datasource:
+#    url: jdbc:postgresql://Dean-postgres:5432/dean_office
+#    driver-class-name: org.postgresql.Driver
+#    username: postgres
+#    password: postgres
 #  jpa:
+#    database: postgresql
+#    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
 #    hibernate:
-#      ddl-auto: create
-#  h2:
-#    console:
-#      enabled: true
+#      ddl-auto: update
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+    jpa:
+      hibernate:
+        ddl-auto: create
+    h2:
+      console:
+        enabled: true
 
 #######
 logging:

@@ -14,7 +14,6 @@ import java.util.Properties;
 
 public class SparkStreamingApp {
     private static final String KAFKA_TOPIC = "JSON_DATA";
-    private static final String KAFKA_SERVER = "Dean-kafka:9092";
     private static final String WATCH_DIRECTORY = "/app/data/";
 
     public static void main(String[] args) throws Exception {
@@ -32,9 +31,6 @@ public class SparkStreamingApp {
 
                 try (KafkaProducer<String, String> producer = new KafkaProducer<>(props)) {
                     partition.forEachRemaining(line -> {
-                        System.out.println("!!!!!!!!!!!!!!!!!");
-                        System.out.println(line);
-                        System.out.println("!!!!!!!!!!!!!!!!!");
                         producer.send(new ProducerRecord<>(KAFKA_TOPIC, line));
                     });
                 }

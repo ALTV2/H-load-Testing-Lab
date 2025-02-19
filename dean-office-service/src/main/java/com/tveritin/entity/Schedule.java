@@ -1,9 +1,12 @@
 package com.tveritin.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
 import java.time.LocalTime;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "Schedule")
 public class Schedule {
