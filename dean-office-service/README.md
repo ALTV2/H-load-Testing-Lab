@@ -1,1 +1,1 @@
-Добавить ResponseEntity
+Основной Rest сервис Web-api 

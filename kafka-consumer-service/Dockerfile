@@ -6,13 +6,7 @@ FROM maven:3.9.9-eclipse-temurin-21 AS build
 WORKDIR /app
 
 # Копируем файл pom.xml и загружаем зависимости
-#COPY pom.xml .
-#COPY src ./src
 COPY target ./target
-
-# Собираем приложение
-#RUN chmod 777 /app/src/main/resources/openapi/dean-office-service-openapi.yaml
-#RUN mvn clean package -DskipTests
 
 # Используем официальный образ OpenJDK для запуска приложения
 FROM eclipse-temurin:21-jdk
