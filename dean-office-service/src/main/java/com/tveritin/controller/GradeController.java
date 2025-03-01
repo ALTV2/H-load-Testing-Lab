@@ -17,7 +17,7 @@ public class GradeController {
     private final GradeService gradeService;
 
     @GetMapping
-    public ResponseEntity<List<Grade>> getGradesByStudentId(@PathVariable UUID studentId) {
+    public ResponseEntity<List<Grade>> getGradesByStudentId(@RequestParam UUID studentId) {
         return ResponseEntity.ok(gradeService.getGradesByStudentId(studentId));
     }
 

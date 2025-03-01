@@ -16,7 +16,7 @@ public class KafkaMessageListener {
 
     @KafkaListener(topics = "JSON_DATA", groupId = "default")
     public void listen(String messageContent) {
-        System.out.println("принял сообщение: " + messageContent);
+        System.out.println("Get message from topic: " + messageContent);
         Message message = new Message(messageContent);
         messageRepository.save(message);
         System.out.println("Saved message to MongoDB: " + messageContent);

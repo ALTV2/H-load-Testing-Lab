@@ -54,7 +54,7 @@ public class PostRequestFilter implements Filter {
     }
 
     // Внутренний класс для кэширования тела запроса
-    private static class CachedBodyHttpServletRequest extends HttpServletRequestWrapper {
+    static class CachedBodyHttpServletRequest extends HttpServletRequestWrapper {
         private final byte[] cachedBody;
 
         public CachedBodyHttpServletRequest(HttpServletRequest request) throws IOException {

@@ -17,7 +17,7 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @GetMapping
-    public ResponseEntity<List<Schedule>> getAllSchedulesByGroupId(@PathVariable UUID groupId) {
+    public ResponseEntity<List<Schedule>> getAllSchedulesByGroupId(@RequestParam UUID groupId) {
         return ResponseEntity.ok(scheduleService.getAllSchedulesByGroupId(groupId));
     }
 

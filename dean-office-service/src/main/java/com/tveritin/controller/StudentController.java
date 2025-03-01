@@ -16,7 +16,7 @@ public class StudentController {
     private final StudentService studentService;
 
     @GetMapping
-    public ResponseEntity<List<Student>> getStudentsByGroupId(@PathVariable UUID groupId) {
+    public ResponseEntity<List<Student>> getStudentsByGroupId(@RequestParam UUID groupId) {
         return ResponseEntity.ok(studentService.getStudentsByGroupId(groupId));
     }
 

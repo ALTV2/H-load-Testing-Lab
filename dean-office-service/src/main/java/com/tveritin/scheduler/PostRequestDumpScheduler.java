@@ -24,7 +24,7 @@ public class PostRequestDumpScheduler {
     private final RequestQueue requestQueue;
 
     @Value("${app.scheduler.output.path}")
-    private String directoryPath;
+    protected String directoryPath;
 
     private static int fileCounter = 1;
 
@@ -35,7 +35,6 @@ public class PostRequestDumpScheduler {
         long maxDuration = 55_000; // 55 секунд в миллисекундах
 
         while (!requestQueue.isEmpty()) {
-            // Проверяем, не превысили ли мы 55 секунд
             if (System.currentTimeMillis() - startTime >= maxDuration) {
                 System.out.println("Достигнут лимит времени 55 секунд, прерываем цикл");
                 break;
@@ -60,13 +59,17 @@ public class PostRequestDumpScheduler {
         }
     }
 
-    private String generateFileName() {
+    protected String generateFileName() {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
         return directoryPath + "/requests_" + timestamp + "_" + fileCounter++ + ".json";
     }
 
     private void writeToFile(String jsonContent, String fileName) throws IOException {
         File file = new File(fileName);
+        File parentDir = file.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs(); // Создаем родительские директории, если их нет
+        }
         if (!file.exists()) {
             file.createNewFile();
         }
