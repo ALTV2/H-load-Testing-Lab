@@ -2,21 +2,17 @@ package com.tveritin.service;
 
 import com.tveritin.entity.Schedule;
 import com.tveritin.repository.ScheduleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
-
-    public ScheduleService(ScheduleRepository scheduleRepository) {
-        this.scheduleRepository = scheduleRepository;
-    }
 
     public List<Schedule> getAllSchedules() {
         return scheduleRepository.findAll();
@@ -45,5 +41,9 @@ public class ScheduleService {
 
     public void deleteSchedule(UUID id) {
         scheduleRepository.deleteById(id);
+    }
+
+    public List<Schedule> getAllSchedulesByGroupId(UUID groupId) {
+        return scheduleRepository.findByGroupId(groupId);
     }
 }

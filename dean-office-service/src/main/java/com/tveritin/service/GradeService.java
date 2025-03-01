@@ -2,7 +2,7 @@ package com.tveritin.service;
 
 import com.tveritin.entity.Grade;
 import com.tveritin.repository.GradeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -10,13 +10,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class GradeService {
 
     private final GradeRepository gradeRepository;
-
-    public GradeService(GradeRepository gradeRepository) {
-        this.gradeRepository = gradeRepository;
-    }
 
     public List<Grade> getAllGrades() {
         return gradeRepository.findAll();
@@ -44,5 +41,9 @@ public class GradeService {
 
     public void deleteGrade(UUID id) {
         gradeRepository.deleteById(id);
+    }
+
+    public List<Grade> getGradesByStudentId(UUID studentId) {
+        return gradeRepository.findByStudentId(studentId);
     }
 }

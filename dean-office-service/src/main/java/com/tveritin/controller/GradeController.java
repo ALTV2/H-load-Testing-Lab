@@ -2,7 +2,7 @@ package com.tveritin.controller;
 
 import com.tveritin.entity.Grade;
 import com.tveritin.service.GradeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,18 +10,15 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/grades")
 public class GradeController {
 
     private final GradeService gradeService;
 
-    public GradeController(GradeService gradeService) {
-        this.gradeService = gradeService;
-    }
-
     @GetMapping
-    public List<Grade> getAllGrades() {
-        return gradeService.getAllGrades();
+    public ResponseEntity<List<Grade>> getGradesByStudentId(@PathVariable UUID studentId) {
+        return ResponseEntity.ok(gradeService.getGradesByStudentId(studentId));
     }
 
     @GetMapping("/{id}")

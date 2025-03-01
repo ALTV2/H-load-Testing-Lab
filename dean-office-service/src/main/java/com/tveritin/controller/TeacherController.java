@@ -2,7 +2,7 @@ package com.tveritin.controller;
 
 import com.tveritin.entity.Teacher;
 import com.tveritin.service.TeacherService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,14 +10,11 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/teachers")
 public class TeacherController {
 
     private final TeacherService teacherService;
-
-    public TeacherController(TeacherService teacherService) {
-        this.teacherService = teacherService;
-    }
 
     @GetMapping
     public List<Teacher> getAllTeachers() {

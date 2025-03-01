@@ -2,8 +2,7 @@ package com.tveritin.controller;
 
 import com.tveritin.entity.Group;
 import com.tveritin.service.GroupService;
-import com.tveritin.service.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,14 +10,10 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/groups")
 public class GroupController {
     private final GroupService groupService;
-
-    public GroupController(GroupService groupService) {
-        this.groupService = groupService;
-    }
-
 
     @GetMapping
     public List<Group> getAllGroups() {
