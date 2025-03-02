@@ -27,7 +27,6 @@ spring:
 #      console:
 #        enabled: true
 
-#######
 logging:
   level:
     root: INFO
@@ -37,4 +36,4 @@ app:
   scheduler:
     output:
       path: /app/data
-#        path: /Users/tveritinaleksandr/IdeaProjects/H-load-Testing-Lab-v2/data
+#      path: /Users/tveritinaleksandr/IdeaProjects/H-load-Testing-Lab-v2/data

@@ -17,32 +17,6 @@ function randomPhone()
     return "+1" .. string.format("%010d", math.random(0, 9999999999))
 end
 
--- -- Setup the request in wrk2
--- request = function()
---     -- Generate random data for the student
---     local firstName = randomString(5)
---     local lastName = randomString(5)
---     local email = randomEmail()
---     local phone = randomPhone()
---
---     -- Prepare the JSON body for the POST request
---     local body = string.format([[
---     {
---       "firstName": "%s",
---       "lastName": "%s",
---       "birthDate": "2001-01-01",
---       "group": {
---         "id": "f916b308-569d-40db-bf00-894d2a254920"
---       },
---       "email": "%s",
---       "phone": "%s"
---     }
---     ]], firstName, lastName, email, phone)
---
---     -- Return the wrk2 request object
---     return wrk.format("POST", "/api/students", nil, body)
--- end
-
 function request()
     path = "/api/students"
     headers = {}
@@ -62,7 +36,7 @@ function request()
           "lastName": "%s",
           "birthDate": "2001-01-01",
           "group": {
-            "id": "-d1006d78-adbe-402f-bb4f-e704cf7b9e1c"
+            "id": "-472c56d6-d1bb-4d0a-aa06-3aafdeaa2638"
           },
           "email": "%s",
           "phone": "%s"
