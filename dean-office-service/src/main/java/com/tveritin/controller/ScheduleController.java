@@ -2,7 +2,7 @@ package com.tveritin.controller;
 
 import com.tveritin.entity.Schedule;
 import com.tveritin.service.ScheduleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,18 +10,15 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/schedules")
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
-    public ScheduleController(ScheduleService scheduleService) {
-        this.scheduleService = scheduleService;
-    }
-
     @GetMapping
-    public List<Schedule> getAllSchedules() {
-        return scheduleService.getAllSchedules();
+    public ResponseEntity<List<Schedule>> getAllSchedulesByGroupId(@RequestParam UUID groupId) {
+        return ResponseEntity.ok(scheduleService.getAllSchedulesByGroupId(groupId));
     }
 
     @GetMapping("/{id}")

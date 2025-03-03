@@ -2,23 +2,22 @@ package com.tveritin.controller;
 
 import com.tveritin.entity.Student;
 import com.tveritin.service.StudentService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/students")
 public class StudentController {
 
     private final StudentService studentService;
 
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
-    }
-
     @GetMapping
-    public List<Student> getAllStudents() {
-        return studentService.getAllStudents();
+    public ResponseEntity<List<Student>> getStudentsByGroupId(@RequestParam UUID groupId) {
+        return ResponseEntity.ok(studentService.getStudentsByGroupId(groupId));
     }
 
     @GetMapping("/{id}")
